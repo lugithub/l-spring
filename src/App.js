@@ -1,31 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
 import { useSpring, animated } from 'react-spring';
 import styled from 'styled-components/macro';
 
 function App() {
-  const [props, setProps] = useState();
-  const [down, setDown] = useState(false);
+  const [down, setDown] = useState();
   const move = useSpring({
     top: 16,
     from: { top: 0 },
-    config: { duration: 10000 },
+    config: { duration: 3000 },
+    reset: true,
+    reverse: !down,
   });
-  const moveUp = useSpring({
-    top: 0,
-    from: { top: 16 },
-    config: { duration: 10000 },
-  });
-
-  useEffect(() => {
-    down ? setProps(move) : setProps(moveUp);
-  }, [down]);
 
   return (
     <>
-      <MyLabel style={props} onClick={() => setDown(!down)}>
+      <MyLabel
+        style={down === void 0 ? void 0 : move}
+        onClick={() => setDown(!down)}
+      >
         I will move
       </MyLabel>
       <span> base</span>
